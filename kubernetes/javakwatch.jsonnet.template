@@ -1,0 +1,34 @@
+local serviceDeployment = import "service-deployment-ingress.jsonnet.template";
+
+local javakwatch() = serviceDeployment + {
+    serviceName:: "javakwatch",
+    dockerImage:: "parjanya/javakwatch:latest",
+    servicePort:: 8080,
+    url:: "/",
+
+    readinessProbe::
+        {
+            "httpGet": {
+                "path": "/actuator/health",
+                "port": "container-port"
+            },
+            "initialDelaySeconds": 8,
+            "periodSeconds": 10
+        },
+
+    livenessProbe::
+        {
+            "httpGet": {
+                "path": "/commitId",
+                "port": "container-port"
+            },
+            "initialDelaySeconds": 8,
+            "periodSeconds": 10
+        },
+
+};
+
+// Export the function as a constructor for shards
+{
+  javakwatch:: javakwatch,
+}
