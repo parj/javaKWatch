@@ -40,6 +40,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
+    <dependency>
+      <groupId>io.fabric8</groupId>
+      <artifactId>kubernetes-client</artifactId>
+      <version>4.5.2</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -62,7 +67,7 @@
               <alias>sample</alias>
               <name>parjanya/${project.name}</name>
               <build>
-                <from>gcr.io/distroless/java:11</from>
+                <from>azul/zulu-openjdk:11</from>
                 <maintainer>parjanya@gmail.com</maintainer>
                 <tags>
                   <tag>latest</tag>

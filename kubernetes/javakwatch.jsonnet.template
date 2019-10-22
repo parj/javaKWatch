@@ -5,6 +5,28 @@ local javakwatch() = serviceDeployment + {
     dockerImage:: "parjanya/javakwatch:1.0-SNAPSHOT",
     servicePort:: 9999,
     url:: "/k8s/",
+    replicas:: "1",
+    serviceAccountName:: "java-watch-svc",
+
+    readinessProbe::
+        {
+            "httpGet": {
+                "path": "/k8s/actuator/health",
+                "port": "container-port"
+            },
+            "initialDelaySeconds": 8,
+            "periodSeconds": 10
+        },
+
+    livenessProbe::
+        {
+            "httpGet": {
+                "path": "/k8s/commitId",
+                "port": "container-port"
+            },
+            "initialDelaySeconds": 8,
+            "periodSeconds": 10
+        },
 
 };
 
