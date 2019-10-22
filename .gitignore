@@ -1,3 +1,5 @@
 target/
 *.iml
 .idea/
+values.yml
+service-deployment-ingress.jsonnet.template

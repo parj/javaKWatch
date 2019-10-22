@@ -2,29 +2,9 @@ local serviceDeployment = import "service-deployment-ingress.jsonnet.template";
 
 local javakwatch() = serviceDeployment + {
     serviceName:: "javakwatch",
-    dockerImage:: "parjanya/javakwatch:latest",
-    servicePort:: 8080,
-    url:: "/",
-
-    readinessProbe::
-        {
-            "httpGet": {
-                "path": "/actuator/health",
-                "port": "container-port"
-            },
-            "initialDelaySeconds": 8,
-            "periodSeconds": 10
-        },
-
-    livenessProbe::
-        {
-            "httpGet": {
-                "path": "/commitId",
-                "port": "container-port"
-            },
-            "initialDelaySeconds": 8,
-            "periodSeconds": 10
-        },
+    dockerImage:: "parjanya/javakwatch:1.0-SNAPSHOT",
+    servicePort:: 9999,
+    url:: "/k8s/",
 
 };
 

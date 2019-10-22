@@ -36,7 +36,7 @@ public class ListPodsController {
             return map;
         } catch (IOException | ApiException e) {
             System.err.println("Error while getting pods");
-            System.err.println(e.getStackTrace());
+            e.printStackTrace(System.err);
             throw new NotFoundException(e.getMessage());
         }
     }

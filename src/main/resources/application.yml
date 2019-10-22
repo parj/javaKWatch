@@ -1,0 +1,9 @@
+
+server:
+  port: 9999
+  servlet:
+    context-path: /k8s/
+
+logging:
+  pattern:
+    console: "[%5p] | %d{yyyy-MM-dd HH:mm:ss.SSS} | %c.%M [%thread] | %m%n"
