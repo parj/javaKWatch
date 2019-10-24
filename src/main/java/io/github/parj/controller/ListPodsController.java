@@ -8,33 +8,34 @@ import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
-import io.github.parj.exception.NotFoundException;
-import io.kubernetes.client.ApiClient;
-import io.kubernetes.client.ApiException;
-import io.kubernetes.client.Configuration;
-import io.kubernetes.client.apis.CoreV1Api;
-import io.kubernetes.client.models.V1Pod;
-import io.kubernetes.client.models.V1PodList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 @RestController
 @RequestMapping("/list")
 public class ListPodsController {
+    private static final Logger logger = LoggerFactory.getLogger(ListPodsController.class);
+    private final String K8S_URL = "https://kubernetes.default.svc";
 
     private KubernetesClient getClient() {
-        Config config = new ConfigBuilder().withMasterUrl("https://kubernetes.default.svc").build();
+        logger.debug("Creating Kubernetes client");
+        logger.info("Connecting to Kubernetes cluster with url " + K8S_URL );
+        Config config = new ConfigBuilder().withMasterUrl(K8S_URL).build();
         return new DefaultKubernetesClient(config);
     }
 
     @RequestMapping(value = "/pods", method = RequestMethod.GET)
     public HashMap<String, String> listPods() {
+        logger.info("Trying to list Pods");
+
         HashMap<String, String> map = new HashMap<>();
         PodList pods = getClient().pods().list();
+        logger.info("Found " + pods.getItems().size() + " pods");
 
         for (Pod pod : pods.getItems())
             map.put("pod_" + pod.hashCode(), pod.getMetadata().getName());
@@ -44,8 +45,12 @@ public class ListPodsController {
 
     @RequestMapping(value = "/ns", method = RequestMethod.GET)
     public HashMap<String, String> listNamespaces() {
+        logger.info("Trying to list Namespaces");
+
         HashMap<String, String> map = new HashMap<>();
         NamespaceList myNs = getClient().namespaces().list();
+        logger.info("Found " + myNs.getItems().size() + " namespaces");
+
         for (Namespace ns : myNs.getItems())
             map.put("ns_" + ns.hashCode(), ns.getMetadata().getName());
 
