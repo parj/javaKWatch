@@ -4,7 +4,7 @@ metadata:
   name: java-watch-svc
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
   namespace: default
   name: pod-reader
@@ -26,7 +26,7 @@ rules:
 
 apiVersion: rbac.authorization.k8s.io/v1
 # This role binding allows "jane" to read pods in the "default" namespace.
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
   name: read-pods
   namespace: default
@@ -35,7 +35,7 @@ subjects:
     name: system:serviceaccount:default:java-watch-svc
     apiGroup: rbac.authorization.k8s.io
 roleRef:
-  kind: Role #this must be Role or ClusterRole
+  kind: ClusterRole #this must be Role or ClusterRole
   name: pod-reader # this must match the name of the Role or ClusterRole you wish to bind to
   apiGroup: rbac.authorization.k8s.io
 ---
@@ -44,7 +44,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 # This role binding allows "jane" to read pods in the "default" namespace.
 kind: ClusterRoleBinding
 metadata:
-  name: read-pods
+  name: read-namespaces
   namespace: default
 subjects:
   - kind: User

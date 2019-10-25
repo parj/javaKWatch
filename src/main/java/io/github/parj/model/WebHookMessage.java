@@ -29,19 +29,18 @@ public class WebHookMessage {
     public WebHookMessage() { }
 
     public WebHookMessage(Watcher.Action action, Pod pod) {
-        WebHookMessage message = new WebHookMessage();
-        message.setAction(action.toString());
-        message.setClusterName(pod.getMetadata().getClusterName());
-        message.setName(pod.getMetadata().getLabels().get("app"));
-        message.setNamespace(pod.getMetadata().getNamespace());
-        message.setPodName(pod.getMetadata().getName());
-        message.setLabels(pod.getMetadata().getLabels());
+        this.setAction(action.toString());
+        this.setClusterName(pod.getMetadata().getClusterName());
+        this.setName(pod.getMetadata().getLabels().get("app"));
+        this.setNamespace(pod.getMetadata().getNamespace());
+        this.setPodName(pod.getMetadata().getName());
+        this.setLabels(pod.getMetadata().getLabels());
 
         //Kubernetes when starting up, there is no status
         if (pod.getStatus().getContainerStatuses().size() > 0) {
-            message.setState(pod.getStatus().getContainerStatuses().get(0).getState());
-            message.setReady(pod.getStatus().getContainerStatuses().get(0).getReady());
-            message.setRestartCount(pod.getStatus().getContainerStatuses().get(0).getRestartCount());
+            this.setState(pod.getStatus().getContainerStatuses().get(0).getState());
+            this.setReady(pod.getStatus().getContainerStatuses().get(0).getReady());
+            this.setRestartCount(pod.getStatus().getContainerStatuses().get(0).getRestartCount());
         }
     }
 }
