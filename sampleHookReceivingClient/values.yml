@@ -1,0 +1,92 @@
+{
+   "apiVersion": "v1",
+   "items": [
+      {
+         "apiVersion": "v1",
+         "kind": "Service",
+         "metadata": {
+            "name": "simpleserver-service"
+         },
+         "spec": {
+            "ports": [
+               {
+                  "port": 9090,
+                  "protocol": "TCP",
+                  "targetPort": 9090
+               }
+            ],
+            "selector": {
+               "app": "simpleserver"
+            },
+            "type": "ClusterIP"
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Ingress",
+         "metadata": {
+            "name": "simpleserver-ingress",
+            "namespace": "default"
+         },
+         "spec": {
+            "rules": [
+               {
+                  "host": "mysterious-grass-savages.github",
+                  "http": {
+                     "paths": [
+                        {
+                           "backend": {
+                              "serviceName": "simpleserver-service",
+                              "servicePort": 9090
+                           },
+                           "path": "/listen"
+                        }
+                     ]
+                  }
+               }
+            ]
+         }
+      },
+      {
+         "apiVersion": "apps/v1",
+         "kind": "Deployment",
+         "metadata": {
+            "labels": {
+               "app": "simpleserver",
+               "environment": "dev"
+            },
+            "name": "simpleserver-deployment"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "simpleserver"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "labels": {
+                     "app": "simpleserver"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "image": "parjanya/simplego:1.0-SNAPSHOT",
+                        "name": "simpleserver",
+                        "ports": [
+                           {
+                              "containerPort": 9090,
+                              "name": "container-port"
+                           }
+                        ]
+                     }
+                  ]
+               }
+            }
+         }
+      }
+   ],
+   "kind": "List"
+}
