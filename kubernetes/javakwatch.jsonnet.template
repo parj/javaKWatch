@@ -1,4 +1,4 @@
-local serviceDeployment = import "service-deployment-ingress.jsonnet.template";
+local serviceDeployment = import "../k8s-template/service-deployment-ingress.jsonnet.template";
 
 local javakwatch() = serviceDeployment + {
     serviceName:: "javakwatch",

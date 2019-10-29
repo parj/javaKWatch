@@ -1,3 +1,6 @@
 [submodule ".ci"]
 	path = .ci
 	url = https://github.com/parj/ci-build
+[submodule "k8s-template"]
+	path = k8s-template
+	url = https://github.com/parj/jsonnet-service-ingress-deployment
