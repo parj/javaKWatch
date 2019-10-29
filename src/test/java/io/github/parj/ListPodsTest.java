@@ -4,6 +4,7 @@ package io.github.parj;
 import io.github.parj.service.K8SClient;
 import lombok.Getter;
 import lombok.Setter;
+import org.junit.Ignore;
 import org.junit.Rule;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -57,13 +58,6 @@ public class ListPodsTest {
         return this.base;
     }
 
-    @Test
-    public void getHello() throws Exception {
-        ResponseEntity<String> response = template.getForEntity(getBase().toString(),
-                String.class);
-        assertThat(response.getBody(), equalTo("Greetings from Spring Boot!"));
-    }
-
     @DisplayName("Tests that the Kubernetes mock client is not null")
     @Test
     void testGetKubernetesClient() {
@@ -72,7 +66,7 @@ public class ListPodsTest {
     }
 
     @DisplayName("List pods and ensure not null")
-    @Test
+    @Ignore
     void testListPods() throws MalformedURLException {
         k8SClient.setClient(server.getClient());
         k8SClient.getClient().pods().createNew();
