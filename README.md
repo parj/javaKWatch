@@ -1,4 +1,6 @@
 # What is this?
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fparj%2FjavaKWatch.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fparj%2FjavaKWatch?ref=badge_shield)
+
 
 This is used for watching Kubernetes deployments and emitting a web hook event. This uses the Kubernetes java client.
 
@@ -39,3 +41,6 @@ See section [how to use this](#how-to-use-this)
 1. Run `mvn clean package docker:build`
 1. Run `kubectl apply -f kubernetes/readpods.yml`. This create a service accaunt called `java-watch-sv`. The service account is used to `get, watch and list` pods and namesapces.
 1. If you do not have jsonnet - run `kubectl apply -f values.yml`. If you do have jsonnet - run `jsonnet javakwatch.jsonnet | kubectl apply -f -`
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fparj%2FjavaKWatch.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fparj%2FjavaKWatch?ref=badge_large)
