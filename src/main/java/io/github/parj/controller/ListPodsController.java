@@ -8,8 +8,12 @@ import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
+import io.github.parj.service.K8SClient;
+import lombok.Getter;
+import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,21 +24,16 @@ import java.util.HashMap;
 @RequestMapping("/list")
 public class ListPodsController {
     private static final Logger logger = LoggerFactory.getLogger(ListPodsController.class);
-    private final String K8S_URL = "https://kubernetes.default.svc";
 
-    private KubernetesClient getClient() {
-        logger.debug("Creating Kubernetes client");
-        logger.info("Connecting to Kubernetes cluster with url " + K8S_URL );
-        Config config = new ConfigBuilder().withMasterUrl(K8S_URL).build();
-        return new DefaultKubernetesClient(config);
-    }
+    @Autowired
+    private K8SClient k8SClient;
 
     @RequestMapping(value = "/pods", method = RequestMethod.GET)
     public HashMap<String, String> listPods() {
         logger.info("Trying to list Pods");
 
         HashMap<String, String> map = new HashMap<>();
-        PodList pods = getClient().pods().list();
+        PodList pods = k8SClient.getClient().pods().list();
         logger.info("Found " + pods.getItems().size() + " pods");
 
         for (Pod pod : pods.getItems())
@@ -48,7 +47,7 @@ public class ListPodsController {
         logger.info("Trying to list Namespaces");
 
         HashMap<String, String> map = new HashMap<>();
-        NamespaceList myNs = getClient().namespaces().list();
+        NamespaceList myNs = k8SClient.getClient().namespaces().list();
         logger.info("Found " + myNs.getItems().size() + " namespaces");
 
         for (Namespace ns : myNs.getItems())

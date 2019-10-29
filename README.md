@@ -1,3 +1,8 @@
+[![Known Vulnerabilities](https://snyk.io/test/github/parj/javaKWatch/badge.svg)](https://snyk.io/test/github/parj/javaKWatch
+) 
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fparj%2FjavaKWatch.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fparj%2FjavaKWatch?ref=badge_large)
+
 # What is this?
 
 This is used for watching Kubernetes deployments and emitting a web hook event. This uses the Kubernetes java client.

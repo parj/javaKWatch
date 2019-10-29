@@ -1,0 +1,109 @@
+{
+   "apiVersion": "v1",
+   "items": [
+      {
+         "apiVersion": "v1",
+         "kind": "Service",
+         "metadata": {
+            "name": "javakwatch-service"
+         },
+         "spec": {
+            "ports": [
+               {
+                  "port": 9999,
+                  "protocol": "TCP",
+                  "targetPort": 9999
+               }
+            ],
+            "selector": {
+               "app": "javakwatch"
+            },
+            "type": "ClusterIP"
+         }
+      },
+      {
+         "apiVersion": "extensions/v1beta1",
+         "kind": "Ingress",
+         "metadata": {
+            "name": "javakwatch-ingress",
+            "namespace": "default"
+         },
+         "spec": {
+            "rules": [
+               {
+                  "host": "mysterious-grass-savages.github",
+                  "http": {
+                     "paths": [
+                        {
+                           "backend": {
+                              "serviceName": "javakwatch-service",
+                              "servicePort": 9999
+                           },
+                           "path": "/k8s/"
+                        }
+                     ]
+                  }
+               }
+            ]
+         }
+      },
+      {
+         "apiVersion": "apps/v1",
+         "kind": "Deployment",
+         "metadata": {
+            "labels": {
+               "app": "javakwatch",
+               "environment": "dev"
+            },
+            "name": "javakwatch-deployment"
+         },
+         "spec": {
+            "replicas": 1,
+            "selector": {
+               "matchLabels": {
+                  "app": "javakwatch"
+               }
+            },
+            "template": {
+               "metadata": {
+                  "labels": {
+                     "app": "javakwatch"
+                  }
+               },
+               "spec": {
+                  "containers": [
+                     {
+                        "image": "parjanya/javakwatch:1.0-SNAPSHOT",
+                        "livenessProbe": {
+                           "httpGet": {
+                              "path": "/k8s/commitId",
+                              "port": "container-port"
+                           },
+                           "initialDelaySeconds": 8,
+                           "periodSeconds": 10
+                        },
+                        "name": "javakwatch",
+                        "ports": [
+                           {
+                              "containerPort": 9999,
+                              "name": "container-port"
+                           }
+                        ],
+                        "readinessProbe": {
+                           "httpGet": {
+                              "path": "/k8s/actuator/health",
+                              "port": "container-port"
+                           },
+                           "initialDelaySeconds": 8,
+                           "periodSeconds": 10
+                        }
+                     }
+                  ],
+                  "serviceAccountName": "java-watch-svc"
+               }
+            }
+         }
+      }
+   ],
+   "kind": "List"
+}
