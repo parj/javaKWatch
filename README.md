@@ -20,11 +20,7 @@ If you want to deploy to Kubernetes. JSONNET is required for generating the file
 
 Sample kuberentes files are in the directory `kuberbetes`.
 
-# To generate Kuberentes files
- 1. clone the reposiory -> https://github.com/parj/jsonnet-service-ingress-deployment. This repo contains the master template and then 
- 1. Run `createTemplates.sh -f javakwatch.jsonnet -k` in the directory `kuberenetes`.
- 
- If you want to do the generation manually, download the file -> https://raw.githubusercontent.com/parj/jsonnet-service-ingress-deployment/master/service-deployment-ingress.jsonnet.template and place in the directory `kubernetes` and then run `jsonnet javakwatch.jsonnet`
+Run `git submodule update --init --recursive` to set up the kubernetes template directory.
  
 # To use this application
 
@@ -44,3 +40,7 @@ See section [how to use this](#how-to-use-this)
 1. Run `mvn clean package docker:build`
 1. Run `kubectl apply -f kubernetes/readpods.yml`. This create a service accaunt called `java-watch-sv`. The service account is used to `get, watch and list` pods and namesapces.
 1. If you do not have jsonnet - run `kubectl apply -f values.yml`. If you do have jsonnet - run `jsonnet javakwatch.jsonnet | kubectl apply -f -`
+
+## To generate Kuberentes files
+ 1. If you haven't run this -> Run `git submodule update --init --recursive` 
+ 1. Run `k8s-template/createTemplates.sh -f kubernetes/javakwatch.jsonnet -k`.
