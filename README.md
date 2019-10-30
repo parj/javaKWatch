@@ -1,5 +1,5 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/parj/javaKWatch/badge.svg)](https://snyk.io/test/github/parj/javaKWatch
-) [![CircleCI](https://circleci.com/gh/parj/javaKWatch.svg?style=svg)](https://circleci.com/gh/parj/javaKWatch)
+) [![CircleCI](https://circleci.com/gh/parj/javaKWatch.svg?style=svg)](https://circleci.com/gh/parj/javaKWatch) ![GitHub](https://img.shields.io/github/license/parj/javaKWatch)
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fparj%2FjavaKWatch.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fparj%2FjavaKWatch?ref=badge_large)
 
