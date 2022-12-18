@@ -52,7 +52,7 @@
         <junit>5.5.2</junit>
         <coveralls>4.3.0</coveralls>
         <git.commit.id.plugin>2.2.1</git.commit.id.plugin>
-        <asyncHttpClient>2.10.4</asyncHttpClient>
+        <asyncHttpClient>2.10.5</asyncHttpClient>
     </properties>
 
     <dependencies>
