@@ -46,13 +46,13 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.surefire>2.22.2</maven.surefire>
         <maven.source.plugin>3.1.0</maven.source.plugin>
-        <io.fabric8.k8s>4.5.2</io.fabric8.k8s>
+        <io.fabric8.k8s>6.0.0</io.fabric8.k8s>
         <io.fabric8.docker>0.31.0</io.fabric8.docker>
         <lombok>1.18.10</lombok>
         <junit>5.5.2</junit>
         <coveralls>4.3.0</coveralls>
         <git.commit.id.plugin>2.2.1</git.commit.id.plugin>
-        <asyncHttpClient>2.10.4</asyncHttpClient>
+        <asyncHttpClient>2.10.5</asyncHttpClient>
     </properties>
 
     <dependencies>
